@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 require('dotenv').config();
-
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
@@ -11,7 +11,7 @@ const db = mysql.createConnection({
   host: process.env.HOST,
   user: process.env.USER,
   password: process.env.PASSWORD,
-  database: process.env.DATABASE,
+  database: process.env.DATABASE
 });
 
 // Connect to the database
@@ -24,6 +24,7 @@ db.connect((err) => {
 
 // Parse JSON request bodies
 app.use(express.json());
+app.use(cors());
 
 // Define POST endpoint to create a new recipe
 app.post('/recipes', (req, res) => {
